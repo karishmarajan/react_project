@@ -16,6 +16,10 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { commonDelete, commonGet } from "../apiServices/Fetch";
 import URL from "../constants/Urls";
 import { useNavigate } from "react-router-dom";
+import ShareIcon from '@mui/icons-material/Share';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 const useStyles = makeStyles((theme) => ({
   avatar: {
@@ -77,18 +81,24 @@ const HomeScreen = (props) => {
             }}
             sm={12}
             md={3}
-            onClick={() => navigate("/view_contact", { state: { id: t.id } })}
+            
           >
             <CardHeader
               avatar={<Avatar className={classes.avatar}>P</Avatar>}
               title={`${t.firstName} ${t.lastName}`}
               subheader={`${t.dob}`}
               action={
-                <IconButton onClick={() => handleDeleteContact(t.id)}>
-                  <DeleteIcon />
+                <IconButton onClick={() => navigate("/view_contact", { state: { id: t.id } })}>
+                  <ArrowForwardIosIcon />
                 </IconButton>
               }
             />
+            <CardActions disableSpacing>
+        <IconButton onClick={() => handleDeleteContact(t.id)} >
+        <DeleteIcon />
+        </IconButton>
+       
+      </CardActions>
           </Card>
         );
       })}
