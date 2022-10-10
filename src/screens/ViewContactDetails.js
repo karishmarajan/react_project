@@ -10,6 +10,7 @@ import BeachAccessIcon from "@mui/icons-material/BeachAccess";
 import { useLocation } from "react-router";
 import URL from "../constants/Urls";
 import { commonGet } from "../apiServices/Fetch";
+import { Container } from "@material-ui/core";
 
 const ViewContactDetails = () => {
   const data = useLocation();
@@ -22,7 +23,6 @@ const ViewContactDetails = () => {
   }, []);
 
   const getUserDetails = async (id) => {
-    console.log("id " + id);
     const res = await commonGet(URL.user_contacts_view + id);
     if (res.status === 200) {
       setUserData(res.data);
@@ -32,11 +32,12 @@ const ViewContactDetails = () => {
   };
 
   return (
+    <Container maxWidth="xs">
     <List
       sx={{
         width: "100%",
-        maxWidth: 360,
-        bgcolor: "background.paper",
+        // maxWidth: 360,
+        // bgcolor: "background.paper",
         margin: "40px",
         backgroundColor: "ButtonShadow",
       }}
@@ -45,33 +46,40 @@ const ViewContactDetails = () => {
         <ListItemText
           primary="Name"
           secondary={userData?.firstName ? userData.firstName : ""}
+          secondaryTypographyProps={{color:'blueviolet'}}
         />
       </ListItem>
       <ListItem>
         <ListItemText
           primary="NickName"
           secondary={userData?.nickName ? userData.nickName : ""}
+          secondaryTypographyProps={{color:'blueviolet'}}
+
         />
       </ListItem>
       <ListItem>
         <ListItemText
           primary="Date of birth"
           secondary={userData?.dob ? userData.dob : ""}
+          secondaryTypographyProps={{color:'blueviolet'}}
         />
       </ListItem>
       <ListItem>
         <ListItemText
           primary="Email"
           secondary={userData?.emails[0] ? userData.emails[0] : ""}
+          secondaryTypographyProps={{color:'blueviolet'}}
         />
       </ListItem>
       <ListItem>
         <ListItemText
           primary="Phone"
           secondary={userData?.phones[0] ? userData.phones[0] : ""}
+          secondaryTypographyProps={{color:'blueviolet'}}
         />
       </ListItem>
     </List>
+    </Container>
   );
 };
 

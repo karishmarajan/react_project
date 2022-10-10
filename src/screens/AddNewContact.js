@@ -13,11 +13,12 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import { commonPost } from "../apiServices/Fetch";
+import { authorizedCommonPost } from "../apiServices/Fetch";
 import URL from "../constants/Urls";
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
+import moment from 'moment';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -51,18 +52,19 @@ const AddNewContact = () => {
     city:"",
     state:"",
     country:"",
-    zipCode:"",
-    phones:[],
-    emails:[],
+    zipCode:null,
+    phones:"",
+    emails:"",
   });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const res = await commonPost(URL.user_contacts, values);
-    console.log("result reached" + JSON.stringify(res));
+    values.phones = [values.phones]
+    values.emails = [values.emails]
+    const res = await authorizedCommonPost(URL.user_contacts, values);
     if (res.status === 200) {
       alert("Added successfully");
-      navigate("/");
+      navigate("/home");
     } else {
       alert("Something went wrong");
     }
@@ -70,12 +72,16 @@ const AddNewContact = () => {
 
     return ( 
         <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <Container component="main" maxWidth="xs">
+        <Container component="main" maxWidth="lg" style={{backgroundColor:'ButtonShadow'}}>
         <CssBaseline />
+        <Typography variant="h4"  className='head-style'>
+          NEW CONTACT
+        </Typography>
         <div className={classes.paper}>
+
           <form className={classes.form} noValidate onSubmit={handleSubmit}>
             <Grid container spacing={1}>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12} sm={4}>
                 <TextField
                   autoComplete="firstName"
                   name="firstName"
@@ -88,7 +94,7 @@ const AddNewContact = () => {
                   onChange={(e) => setValues({ ...values, firstName: e.target.value })}
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12} sm={4}>
                 <TextField
                   autoComplete="lastName"
                   name="lastName"
@@ -101,7 +107,7 @@ const AddNewContact = () => {
                   onChange={(e) => setValues({ ...values, lastName: e.target.value })}
                 />
               </Grid>
-              <Grid item xs={12}>
+              <Grid item xs={12}sm={4}>
                 <TextField
                   autoComplete="nickName"
                   name="nickName"
@@ -113,21 +119,22 @@ const AddNewContact = () => {
                   onChange={(e) => setValues({ ...values, nickName: e.target.value })}
                 />
               </Grid>
-              <Grid item xs={12}>
+              <Grid item lg={12}>
               <DesktopDatePicker
           label="DOB"
           inputFormat="MM/DD/YYYY"
           value={values.dob}
-          onChange={(e) =>
-            setValues({ ...values, dob: e.target.value })}
-        
+          onChange={(e) =>{
+            setValues(moment(e));
+            alert(e)
+          }}
           renderInput={(params) => <TextField {...params} 
           variant="outlined"
           fullWidth
           />}
         />
          </Grid>
-         <Grid item xs={12}>
+         <Grid item  xs={12} sm={6}>
                 <TextField
                   autoComplete="address"
                   name="address"
@@ -139,7 +146,7 @@ const AddNewContact = () => {
                   onChange={(e) => setValues({ ...values, address: e.target.value })}
                 />
               </Grid>
-              <Grid item xs={12}>
+              <Grid item xs={12} sm={6}>
                 <TextField
                   autoComplete="city"
                   name="city"
@@ -151,7 +158,7 @@ const AddNewContact = () => {
                   onChange={(e) => setValues({ ...values, city: e.target.value })}
                 />
               </Grid>
-              <Grid item xs={12}>
+              <Grid item xs={12} sm={6}>
                 <TextField
                   autoComplete="state"
                   name="state"
@@ -163,7 +170,7 @@ const AddNewContact = () => {
                   onChange={(e) => setValues({ ...values, state: e.target.value })}
                 />
               </Grid>
-              <Grid item xs={12}>
+              <Grid item xs={12} sm={6}>
                 <TextField
                   autoComplete="country"
                   name="country"

@@ -48,7 +48,6 @@ const Registration = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const res = await commonPost(URL.user_registration, values);
-    console.log("result reached" + JSON.stringify(res));
     if (res.status === 200) {
       alert("Registered successfully");
       navigate("/");

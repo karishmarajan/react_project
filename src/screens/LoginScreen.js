@@ -49,7 +49,6 @@ const LoginScreen = (props) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const res = await commonPost(URL.login, values);
-    console.log("result reached" + JSON.stringify(res));
     if (res.status === 200) {
       localStorage.setItem("refreshToken", res.data.refreshToken.value);
       localStorage.setItem("accessToken", res.data.accessToken.value);
