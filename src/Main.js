@@ -7,6 +7,7 @@ import MyContext from "./context/appContext.js";
 import AddNewContact from "./screens/AddNewContact.js";
 import ViewContactDetails from "./screens/ViewContactDetails.js";
 import { getNewAccessToken } from "./apiServices/Fetch.js";
+import EditContactDetails from "./screens/EditContactDetails.js";
 
 const Main = () => {
   const [userToken, setUserToken] = useState({
@@ -38,6 +39,7 @@ const Main = () => {
           <Route path="/reg" element={<Registration />} />
           <Route path="/new_contact" element={<AddNewContact />} />
           <Route path="/view_contact" element={<ViewContactDetails />} />
+          <Route path="/edit_contact" element={<EditContactDetails />} />
         </Routes>
       </Router>
     </MyContext.Provider>

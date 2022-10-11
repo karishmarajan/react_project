@@ -7,13 +7,37 @@ import Avatar from "@mui/material/Avatar";
 import ImageIcon from "@mui/icons-material/Image";
 import WorkIcon from "@mui/icons-material/Work";
 import BeachAccessIcon from "@mui/icons-material/BeachAccess";
-import { useLocation } from "react-router";
+import {  useLocation } from "react-router";
+import { useNavigate } from "react-router-dom";
 import URL from "../constants/Urls";
 import { commonGet } from "../apiServices/Fetch";
-import { Container } from "@material-ui/core";
+import { Button, Container } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles((theme) => ({
+  paper: {
+    marginTop: theme.spacing(8),
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+  },
+  avatar: {
+    margin: theme.spacing(1),
+    backgroundColor: theme.palette.secondary.main,
+  },
+  form: {
+    width: "100%", // Fix IE 11 issue.
+    marginTop: theme.spacing(3),
+  },
+  submit: {
+    margin: theme.spacing(3, 0, 2),
+  },
+}));
 
 const ViewContactDetails = () => {
+  const classes = useStyles();
   const data = useLocation();
+  const navigate = useNavigate();
   const [userData, setUserData] = useState();
 
   useEffect(() => {
@@ -36,10 +60,8 @@ const ViewContactDetails = () => {
     <List
       sx={{
         width: "100%",
-        // maxWidth: 360,
-        // bgcolor: "background.paper",
-        margin: "40px",
         backgroundColor: "ButtonShadow",
+        marginTop:"40px"
       }}
     >
       <ListItem>
@@ -79,6 +101,18 @@ const ViewContactDetails = () => {
         />
       </ListItem>
     </List>
+
+    <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+              onClick={() =>
+                navigate("/edit_contact", { state: { data: userData } })}
+            >
+              Edit
+            </Button>
     </Container>
   );
 };

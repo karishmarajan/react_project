@@ -5,5 +5,6 @@ const URL ={
     user_contacts:base_url+"contacts",
     user_contacts_delete:base_url+"contacts/",
     user_contacts_view:base_url+"contacts/",
+    user_contacts_edit:base_url+"contacts/",
 }
 export default URL;

@@ -7,7 +7,7 @@ export function commonPost(url, values) {
     .post(url, values)
     .then((res) => {
       if (res.status == 200) {
-        console.log("Res " + JSON.stringify(res));
+        // console.log("Res " + JSON.stringify(res));
         return res;
       } else {
         console.log("Res in else " + JSON.stringify(res));
@@ -33,7 +33,7 @@ export function authorizedCommonPost(url, values) {
     )
     .then((res) => {
       if (res.status == 200) {
-        console.log("Res " + JSON.stringify(res));
+        // console.log("Res " + JSON.stringify(res));
         return res;
       } else {
         console.log("Res in else " + JSON.stringify(res));
@@ -55,7 +55,7 @@ export function commonGet(url) {
     })
     .then((res) => {
       if (res.status == 200) {
-        console.log("Res " + JSON.stringify(res));
+        // console.log("Res " + JSON.stringify(res));
         return res;
       } else {
         console.log("Res in else " + JSON.stringify(res));
@@ -77,7 +77,7 @@ export function commonDelete(url) {
     })
     .then((res) => {
       if (res.status == 200) {
-        console.log("Res " + JSON.stringify(res));
+        // console.log("Res " + JSON.stringify(res));
         return res;
       } else {
         console.log("Res in else " + JSON.stringify(res));
@@ -86,6 +86,32 @@ export function commonDelete(url) {
     .catch((error) => {
       console.log("Resonse Error " + error);
       // return error;
+    });
+}
+
+export function authorizedCommonPut(url, values) {
+  let access_token = localStorage.getItem("accessToken");
+  return axios
+    .put(url,values,{
+        headers: { 
+          Authorization: "Contacts " + access_token,
+          "Content-Type":"application/json"
+        },
+      },
+      
+    )
+    .then((res) => {
+      if (res.status == 200) {
+        // console.log("Res " + JSON.stringify(res));
+        return res;
+      } else {
+        console.log("Res in else " + JSON.stringify(res));
+      }
+    })
+    .catch((error) => {
+      console.log(
+        "Resonse Error code " + JSON.stringify(error.response.data.status)
+      );
     });
 }
 

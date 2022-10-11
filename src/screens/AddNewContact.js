@@ -1,66 +1,60 @@
-import React, { useState } from 'react';
-import Avatar from "@material-ui/core/Avatar";
+import React, { useState } from "react";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
-// import Link from '@material-ui/core/Link';
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Grid from "@material-ui/core/Grid";
-import Box from "@material-ui/core/Box";
-import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import { authorizedCommonPost } from "../apiServices/Fetch";
 import URL from "../constants/Urls";
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
-import moment from 'moment';
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
+import moment from "moment";
 
 const useStyles = makeStyles((theme) => ({
-    paper: {
-      marginTop: theme.spacing(8),
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-    },
-    avatar: {
-      margin: theme.spacing(1),
-      backgroundColor: theme.palette.secondary.main,
-    },
-    form: {
-      width: "100%", // Fix IE 11 issue.
-      marginTop: theme.spacing(3),
-    },
-    submit: {
-      margin: theme.spacing(3, 0, 2),
-    },
-  }));
+  paper: {
+    marginTop: theme.spacing(8),
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+  },
+  avatar: {
+    margin: theme.spacing(1),
+    backgroundColor: theme.palette.secondary.main,
+  },
+  form: {
+    width: "100%", // Fix IE 11 issue.
+    marginTop: theme.spacing(3),
+  },
+  submit: {
+    margin: theme.spacing(3, 0, 2),
+  },
+}));
 
 const AddNewContact = () => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
   const classes = useStyles();
   const [values, setValues] = useState({
     firstName: "",
-    lastName:"",
-    nickName:"",
-    dob:"",
-    address:"",
-    city:"",
-    state:"",
-    country:"",
-    zipCode:null,
-    phones:"",
-    emails:"",
+    lastName: "",
+    nickName: "",
+    dob: "",
+    address: "",
+    city: "",
+    state: "",
+    country: "",
+    zipcode: null,
+    phones: "",
+    emails: "",
   });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    values.phones = [values.phones]
-    values.emails = [values.emails]
+    values.phones = [values.phones];
+    values.emails = [values.emails];
     const res = await authorizedCommonPost(URL.user_contacts, values);
     if (res.status === 200) {
       alert("Added successfully");
@@ -70,15 +64,18 @@ const AddNewContact = () => {
     }
   };
 
-    return ( 
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <Container component="main" maxWidth="lg" style={{backgroundColor:'ButtonShadow'}}>
+  return (
+    <LocalizationProvider dateAdapter={AdapterDayjs}>
+      <Container
+        component="main"
+        maxWidth="lg"
+        style={{ backgroundColor: "ButtonShadow" }}
+      >
         <CssBaseline />
-        <Typography variant="h4"  className='head-style'>
+        <Typography variant="h4" className="head-style">
           NEW CONTACT
         </Typography>
         <div className={classes.paper}>
-
           <form className={classes.form} noValidate onSubmit={handleSubmit}>
             <Grid container spacing={1}>
               <Grid item xs={12} sm={4}>
@@ -91,7 +88,9 @@ const AddNewContact = () => {
                   id="firstname"
                   label="FirstName"
                   autoFocus
-                  onChange={(e) => setValues({ ...values, firstName: e.target.value })}
+                  onChange={(e) =>
+                    setValues({ ...values, firstName: e.target.value })
+                  }
                 />
               </Grid>
               <Grid item xs={12} sm={4}>
@@ -104,10 +103,12 @@ const AddNewContact = () => {
                   id="lastName"
                   label="LastName"
                   autoFocus
-                  onChange={(e) => setValues({ ...values, lastName: e.target.value })}
+                  onChange={(e) =>
+                    setValues({ ...values, lastName: e.target.value })
+                  }
                 />
               </Grid>
-              <Grid item xs={12}sm={4}>
+              <Grid item xs={12} sm={4}>
                 <TextField
                   autoComplete="nickName"
                   name="nickName"
@@ -116,25 +117,26 @@ const AddNewContact = () => {
                   id="nickName"
                   label="NickName"
                   autoFocus
-                  onChange={(e) => setValues({ ...values, nickName: e.target.value })}
+                  onChange={(e) =>
+                    setValues({ ...values, nickName: e.target.value })
+                  }
                 />
               </Grid>
-              <Grid item lg={12}>
-              <DesktopDatePicker
-          label="DOB"
-          inputFormat="MM/DD/YYYY"
-          value={values.dob}
-          onChange={(e) =>{
-            setValues(moment(e));
-            alert(e)
-          }}
-          renderInput={(params) => <TextField {...params} 
-          variant="outlined"
-          fullWidth
-          />}
-        />
-         </Grid>
-         <Grid item  xs={12} sm={6}>
+              <Grid item xs={12} sm={6}>
+                <DesktopDatePicker
+                  label="DOB"
+                  inputFormat="MM/DD/YYYY"
+                  value={values.dob}
+                  onChange={(e) => {
+                    setValues(moment(e));
+                    alert(e);
+                  }}
+                  renderInput={(params) => (
+                    <TextField {...params} variant="outlined" fullWidth />
+                  )}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
                 <TextField
                   autoComplete="address"
                   name="address"
@@ -143,7 +145,9 @@ const AddNewContact = () => {
                   id="address"
                   label="Address"
                   autoFocus
-                  onChange={(e) => setValues({ ...values, address: e.target.value })}
+                  onChange={(e) =>
+                    setValues({ ...values, address: e.target.value })
+                  }
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -155,7 +159,9 @@ const AddNewContact = () => {
                   id="city"
                   label="City"
                   autoFocus
-                  onChange={(e) => setValues({ ...values, city: e.target.value })}
+                  onChange={(e) =>
+                    setValues({ ...values, city: e.target.value })
+                  }
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -167,7 +173,9 @@ const AddNewContact = () => {
                   id="state"
                   label="State"
                   autoFocus
-                  onChange={(e) => setValues({ ...values, state: e.target.value })}
+                  onChange={(e) =>
+                    setValues({ ...values, state: e.target.value })
+                  }
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -179,7 +187,23 @@ const AddNewContact = () => {
                   id="country"
                   label="Country"
                   autoFocus
-                  onChange={(e) => setValues({ ...values, country: e.target.value })}
+                  onChange={(e) =>
+                    setValues({ ...values, country: e.target.value })
+                  }
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  autoComplete="zipcode"
+                  name="zipcode"
+                  variant="outlined"
+                  fullWidth
+                  id="zipcode"
+                  label="zipcode"
+                  autoFocus
+                  onChange={(e) =>
+                    setValues({ ...values, zipcode: e.target.value })
+                  }
                 />
               </Grid>
               <Grid item xs={12}>
@@ -211,7 +235,6 @@ const AddNewContact = () => {
                   }
                 />
               </Grid>
-              
             </Grid>
             <Button
               type="submit"
@@ -225,8 +248,8 @@ const AddNewContact = () => {
           </form>
         </div>
       </Container>
-      </LocalizationProvider>
-     );
-}
- 
+    </LocalizationProvider>
+  );
+};
+
 export default AddNewContact;
