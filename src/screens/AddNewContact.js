@@ -46,7 +46,7 @@ const AddNewContact = () => {
     city: "",
     state: "",
     country: "",
-    zipcode: null,
+    zipCode: null,
     phones: "",
     emails: "",
   });
@@ -55,6 +55,7 @@ const AddNewContact = () => {
     e.preventDefault();
     values.phones = [values.phones];
     values.emails = [values.emails];
+    console.log("values "+JSON.stringify(values))
     const res = await authorizedCommonPost(URL.user_contacts, values);
     if (res.status === 200) {
       alert("Added successfully");
@@ -124,12 +125,14 @@ const AddNewContact = () => {
               </Grid>
               <Grid item xs={12} sm={6}>
                 <DesktopDatePicker
+                disableFuture
                   label="DOB"
                   inputFormat="MM/DD/YYYY"
                   value={values.dob}
                   onChange={(e) => {
-                    setValues(moment(e));
+                    setValues({...values, dob:moment(new Date(e)).format('DD/MM/yyyy').toString()} );
                     alert(e);
+                    console.log(moment(new Date(e)).format('DD/MM/yyyy'))
                   }}
                   renderInput={(params) => (
                     <TextField {...params} variant="outlined" fullWidth />
@@ -194,15 +197,15 @@ const AddNewContact = () => {
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
-                  autoComplete="zipcode"
-                  name="zipcode"
+                  autoComplete="zipCode"
+                  name="zipCode"
                   variant="outlined"
                   fullWidth
-                  id="zipcode"
-                  label="zipcode"
+                  id="zipCode"
+                  label="zipCode"
                   autoFocus
                   onChange={(e) =>
-                    setValues({ ...values, zipcode: e.target.value })
+                    setValues({ ...values, zipCode: e.target.value })
                   }
                 />
               </Grid>
