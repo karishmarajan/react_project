@@ -48,7 +48,7 @@ const EditContactDetails = () => {
     city: "",
     state: "",
     country: "",
-    zipcode: "",
+    zipCode: "",
     phones: "",
     emails: "",
   });
@@ -64,7 +64,7 @@ const EditContactDetails = () => {
         city: data.state.data.city,
         state: data.state.data.state,
         country: data.state.data.country,
-        zipcode: data.state.data.zipcode,
+        zipCode: data.state.data.zipCode,
         phones: data.state.data.phones,
         emails: data.state.data.emails,
       });
@@ -154,8 +154,9 @@ const EditContactDetails = () => {
                   inputFormat="MM/DD/YYYY"
                   value={values.dob ? values.dob : ""}
                   onChange={(e) => {
-                    setValues(moment(e));
+                    setValues({...values, dob:moment(new Date(e)).format('DD/MM/yyyy').toString()} );
                     alert(e);
+                    console.log(moment(new Date(e)).format('DD/MM/yyyy'))
                   }}
                   renderInput={(params) => (
                     <TextField {...params} variant="outlined" fullWidth />
@@ -224,16 +225,16 @@ const EditContactDetails = () => {
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
-                  autoComplete="zipcode"
-                  name="zipcode"
+                  autoComplete="zipCode"
+                  name="zipCode"
                   variant="outlined"
                   fullWidth
-                  id="zipcode"
-                  label="zipcode"
+                  id="zipCode"
+                  label="zipCode"
                   autoFocus
-                  value={values.zipcode ? values.zipcode : ""}
+                  value={values.zipCode ? values.zipCode : ""}
                   onChange={(e) =>
-                    setValues({ ...values, zipcode: e.target.value })
+                    setValues({ ...values, zipCode: e.target.value })
                   }
                 />
               </Grid>

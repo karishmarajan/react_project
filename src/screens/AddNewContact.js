@@ -125,7 +125,7 @@ const AddNewContact = () => {
               </Grid>
               <Grid item xs={12} sm={6}>
                 <DesktopDatePicker
-                disableFuture
+                  disableFuture
                   label="DOB"
                   inputFormat="MM/DD/YYYY"
                   value={values.dob}
